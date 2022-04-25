@@ -8,7 +8,7 @@ AnimalWeb dataset could be downloaded through the link [AnimalWeb](https://drive
 
 ## Demo
 
-![Collage_20220425_110149](D:\qq\1239615568\FileRecv\MobileFile\Collage_20220425_110149.jpg)
+![Collage_20220425_110149](demo.jpg)
 
 ## Requirement
 
