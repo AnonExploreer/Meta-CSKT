@@ -5,7 +5,7 @@ PRINT_FREQ: 50
 DATASET:
   DATASET: AnimalWeb
   ROOT: '/home/cseadmin/hsc/animal_dataset_v1_c/animal_dataset_v1_clean_check'
-  TRAINSET: './data/label_v3_8.txt'
+  TRAINSET: './data/train_40img.txt'
   UNLABELSET: './data/all.txt'
   VALSET: './data/all_150.txt'
   TESTSET: './data/all.txt'
