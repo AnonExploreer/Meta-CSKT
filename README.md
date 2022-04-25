@@ -2,6 +2,14 @@
 
 This project is the implementation of our proposed method **Meta-CSKT**.
 
+## Dataset
+
+AnimalWeb dataset could be downloaded through the link [AnimalWeb](https://drive.google.com/file/d/1Lbg4Bewu92-NxwP7pERKS-2Ny0FX7xqK/view?usp=sharing)
+
+## Demo
+
+![Collage_20220425_110149](D:\qq\1239615568\FileRecv\MobileFile\Collage_20220425_110149.jpg)
+
 ## Requirement
 
 pytorch 1.7+
@@ -45,6 +53,20 @@ python test.py --cfg ./experiment/test_40_known.yaml --seed 5 --name test_40_kno
 # Unknown Setting
 python test.py --cfg ./experiment/test_40_unknown.yaml --seed 5 --name test_40_unknown --dataset animalweb --evaluate --resume checkpoint/animalweb_40img_best.tar
 
+```
+
+For each cfg file, you need to change the dataset directory to your own location:
+
+```yaml
+DATASET:
+  DATASET: AnimalWeb
+  ROOT: 'YOUR_OWN_LOC'
+  TRAINSET: './data/train_80img.txt'
+  UNLABELSET: './data/all.txt'
+  VALSET: './data/all_150.txt'
+  TESTSET: './data/all.txt'
+  BBOX: './data/bbox.csv'
+ ...
 ```
 
 
