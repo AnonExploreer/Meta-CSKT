@@ -96,3 +96,48 @@ python train_ours.py --cfg ./experiment/80.yaml --update-steps 600 --name animal
 
 ```
 
+## Horse
+
+We also did some experiment on [Horse](https://www.dropbox.com/s/9t770jhcjqo3mmg/release_data.zip) dataset provided by [menorashid](https://github.com/menoRashid/animal_human_kp).
+
+### Train
+
+First, unzip the data and it will look like this:
+
+```
+release_data
+--aflw
+--face
+--horse
+```
+
+To run the training code, we can use the following command:
+
+First, change the `DATASET.ROOT` in `experiment/horse.yaml` and `experiment/horse_test.yaml` to the path of `release_data`:
+
+```yaml
+DATASET:
+	ROOT: 'your path'
+```
+
+Download [pretrained horse model](https://drive.google.com/file/d/1cAbqJfHY_y_fFZ2qdn3eqaTVadrkPdQu/view?usp=sharing) and put it in `pretrained_model`
+
+```shell
+python train_horse.py --cfg ./experiment/horse.yaml  --save-path ./checkpoint_horse --seed 5 --unlabel-root "data root of AnimalWeb" --unlabel-bbox ./data/bbox.csv --name horse  --dataset animalweb   --lambda-u 8  --student-wait-steps 0  --amp --resume ./pretrained_model/horse_pretrain.pth
+```
+
+### Test
+
+First, change the `DATASET.ROOT` in `experiment/horse.yaml` and `experiment/horse_test.yaml` to the path of `release_data`:
+
+```yaml
+DATASET:
+	ROOT: 'your path'
+```
+
+Download the trained [mode](https://drive.google.com/file/d/16PQ6K7eovT3gkmD4jY9PHqdfI7xw3YKM/view?usp=sharing), put it in `checkpoint_horse`
+
+```shell
+python test.py --cfg ./experiment/horse_test.yaml --seed 5 --name test_horse --dataset animalweb --evaluate --resume checkpoint_horse/horse_best.pth.tar
+```
+
