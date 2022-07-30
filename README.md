@@ -68,7 +68,14 @@ DATASET:
   BBOX: './data/bbox.csv'
  ...
 ```
-
+## Test Single Image
+To test the single image, we use `test_single_img.ipynb`.
+In this jupyter notebook, the to test image name and the model to test need to be specified.
+```python
+imgname = 'arcticfox_32.jpg'
+model_name = 'checkpoint/animalweb_80img_best.tar' #change it to the model you want to use
+```
+Once you change the `imgname` and `model_name`, you could just run all.
 
 
 ## Train
