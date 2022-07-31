@@ -16,7 +16,7 @@ pytorch 1.7+
 
 python 3.8
 
-## Test
+## Test the Dataset
 
 To test the trained model, you could download our model through the link below.
 
