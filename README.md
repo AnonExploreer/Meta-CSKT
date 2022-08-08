@@ -93,7 +93,7 @@ Once you change the `imgname` and `model_name`, you could just run all.
 
 ## Ablation Study Model
 
-[ablation_study_models.zip]()
+[ablation_study_models.zip](https://drive.google.com/file/d/1Y9z6kuha7_LyKddRaQQiB9AKl4P9vBJ-/view?usp=sharing)
 
 ## Train
 
