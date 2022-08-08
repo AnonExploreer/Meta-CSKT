@@ -91,6 +91,9 @@ model_name = 'checkpoint/animalweb_80img_best.pth.tar' #change it to the model y
 You could check the animalweb dataset to choose the image you want to test on your own and just copy the file name.
 Once you change the `imgname` and `model_name`, you could just run all.
 
+## Ablation Study Model
+
+[ablation_study_models.zip]()
 
 ## Train
 
