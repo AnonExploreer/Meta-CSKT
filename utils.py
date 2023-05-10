@@ -54,7 +54,8 @@ def save_checkpoint(args, state, is_best, finetune=False):
         name = f'{args.name}_finetune'
     else:
         name = args.name
-    filename = f'{args.save_path}/{name}_last.pth.tar'
+    step = int(state['step'])
+    filename = f'{args.save_path}/{name}_step{step}.pth.tar'
     torch.save(state, filename, _use_new_zipfile_serialization=False)
     if is_best:
         shutil.copyfile(filename, f'{args.save_path}/{args.name}_best.pth.tar')

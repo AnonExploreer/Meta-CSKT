@@ -208,7 +208,7 @@ def compute_shift_pre(preds1, preds2, meta):
 
     return rmse
 
-def compute_shift_pre_data(preds1, preds2, scale):
+def compute_shift_pre_data(preds1, preds2, bbox):
 
     preds1 = np.array(preds1)
     preds2 = np.array(preds2)
@@ -218,7 +218,7 @@ def compute_shift_pre_data(preds1, preds2, scale):
 
     for i in range(N): 
         pts_pred, pts_gt = preds1[i, ], preds2[i, ]
-        interocular = np.linalg.norm(math.sqrt(scale*200))
+        interocular = math.sqrt(bbox)
         errorsum = 0
         errorsum += np.sum(np.linalg.norm(pts_pred[6, ]-pts_gt[0, ]))
         errorsum += np.sum(np.linalg.norm(pts_pred[8, ]-pts_gt[1, ]))
@@ -231,7 +231,7 @@ def compute_shift_pre_data(preds1, preds2, scale):
 
     return rmse
 
-def compute_shift_data(preds1, preds2, scale):
+def compute_shift_data(preds1, preds2, bbox):
     preds1 = np.array(preds1)
     preds2 = np.array(preds2)
     N = preds2.shape[0]
@@ -240,7 +240,7 @@ def compute_shift_data(preds1, preds2, scale):
 
     for i in range(N):
         pts_pred, pts_gt = preds1[i, ], preds2[i, ]
-        interocular = np.linalg.norm(math.sqrt(scale*200))
+        interocular = math.sqrt(bbox)
         errorsum = 0
         errorsum += np.sum(np.linalg.norm(pts_pred[0, ]-pts_gt[3, ]))
         errorsum += np.sum(np.linalg.norm(pts_pred[1, ]-pts_gt[2, ]))

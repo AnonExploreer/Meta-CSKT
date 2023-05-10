@@ -85,7 +85,7 @@ class AnimalWeb(data.Dataset):
             self.landmarks = []
             for x in self.landmarks_frame:
                 preds1 = self.ffpts[x]['preds']
-                n = compute_shift_data(preds1, self.fpts[x]['preds'], self.fpts[x]['scale'])[0]
+                n = compute_shift_data(preds1, self.fpts[x]['preds'], self.height[x])[0]
                 if n < args.f_threshold:
                     self.landmarks.append(x)
                 else:
@@ -96,7 +96,7 @@ class AnimalWeb(data.Dataset):
             for x in self.landmarks_frame:
                 preds1 = self.hpts[x]['preds']
                 preds2 = self.fpts[x]['preds']
-                n = compute_shift_pre_data(preds1, preds2, self.fpts[x]['scale'])[0]
+                n = compute_shift_pre_data(preds1, preds2, self.height[x])[0]
                 self.p[x] = 0
                 if n < args.l_threshold:
                     self.p[x]=1
