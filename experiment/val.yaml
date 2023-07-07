@@ -1,0 +1,85 @@
+GPUS: (0, )
+WORKERS: 5
+PRINT_FREQ: 50
+
+DATASET:
+  DATASET: AnimalWeb
+  ROOT: '/home/shanchuan/data/animal_dataset_v1_c/animal_dataset_v1_clean_check'
+  TRAINSET: './data/train_40img.txt'
+  UNLABELSET: './data/all.txt'
+  VALSET: './data/all_150.txt'
+  TESTSET: './data/all_150.txt'
+  BBOX: './data/bbox.csv'
+  FLIP: false
+  WEAK_SCALE_FACTOR: 0.05
+  WEAK_ROT_FACTOR: 10
+  STRONG_SCALE_FACTOR: 0.15
+  STRONG_ROT_FACTOR: 30
+
+MODEL:
+  NAME: 'hrnet'
+  NUM_JOINTS: 9
+  INIT_WEIGHTS: true
+  PRETRAINED: './pretrained/HR18-AFLW.pth'
+  SIGMA: 1.0 
+  IMAGE_SIZE:
+    - 255
+    - 255
+  HEATMAP_SIZE:
+    - 64
+    - 64
+  EXTRA:
+    FINAL_CONV_KERNEL: 1
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      BLOCK: BASIC
+      NUM_BLOCKS:
+        - 4
+        - 4
+      NUM_CHANNELS:
+        - 18
+        - 36
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      BLOCK: BASIC
+      NUM_BLOCKS:
+        - 4
+        - 4
+        - 4
+      NUM_CHANNELS:
+        - 18
+        - 36
+        - 72
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+        - 4
+        - 4
+        - 4
+        - 4
+      NUM_CHANNELS:
+        - 18
+        - 36
+        - 72
+        - 144
+      FUSE_METHOD: SUM
+TRAIN:
+  BATCH_SIZE_PER_GPU: 4
+  SHUFFLE: true
+  BEGIN_EPOCH: 0
+  END_EPOCH: 300
+  RESUME: false
+  OPTIMIZER: 'adam'
+  LR: 0.0001
+  WD: 0.0
+  LR_STEP: [30, 50]
+  MOMENTUM: 0.0
+  NESTEROV: false
+TEST:
+  BATCH_SIZE_PER_GPU: 16

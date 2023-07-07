@@ -10,6 +10,8 @@ import numpy as np
 import json
 from torch.utils.data import DataLoader
 from ..utils.transforms import fliplr_joints, crop, generate_target, transform_pixel
+from ..utils.augmentation_pool import RandAugmentMC
+import torchvision.transforms as transforms
 from ..core.evaluation import  compute_shift_pre_data
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -44,6 +46,14 @@ class AnimalWeb(data.Dataset):
         self.label_type = cfg.MODEL.TARGET_TYPE
 
         self.flip = cfg.DATASET.FLIP
+        # self.transform_s = transforms.Compose([RandAugmentMC(2, 10, 6),
+        #                                       transforms.ToTensor(),
+        #                                       normalize])
+        # self.transform_w = transforms.Compose([
+        #             transforms.ToTensor(),
+        #             normalize
+        #         ])
+        self.transform = RandAugmentMC(2, 10, 6)
 
         self.mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
         self.std = np.array([0.229, 0.224, 0.225], dtype=np.float32)
@@ -153,7 +163,9 @@ class AnimalWeb(data.Dataset):
         img = img.transpose([2, 0, 1])
 
 
-        img1 = np.fliplr(img1)
+        img1 = Image.fromarray(img1)
+        img1 = self.transform(img1)
+        img1 = np.array(img1)
         img1 = img1.astype(np.float32)
         img1 = (img1/255.0 - self.mean) / self.std
         img1 = img1.transpose([2, 0, 1])

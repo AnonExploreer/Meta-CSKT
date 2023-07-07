@@ -431,7 +431,7 @@ def main():
         num_workers=config.WORKERS,
         pin_memory=config.PIN_MEMORY)
 
-    exit()
+    
 
     teacher_model = hrnet.get_face_alignment_net(config)
     student_model = hrnet.get_face_alignment_net(config)
