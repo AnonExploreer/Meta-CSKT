@@ -2,7 +2,7 @@
 
 This project is the implementation of our proposed method **Meta-CSKT**.
 
-## Dataset
+## Datasets
 
 ### AnimalWeb
 
@@ -12,11 +12,15 @@ AnimalWeb dataset could be downloaded through the link [AnimalWeb](https://drive
 
 [Horse](https://www.dropbox.com/s/9t770jhcjqo3mmg/release_data.zip) dataset provided by [menorashid](https://github.com/menoRashid/animal_human_kp).
 ## Demo
-AnimalWeb
+**Samples from AnimalWeb**
+
+---
 
 ![Collage_20220425_110149](demo.jpg)
 
-Horse Dataset
+**Samples from Horse Dataset**
+
+---
 
 ![Collage_20220425_110149](horse_demo.png)
 
@@ -26,7 +30,7 @@ pytorch 1.7+
 
 python 3.8
 
-## Test the Dataset
+## Test
 
 To test the trained model, you could download our model through the link below.
 
@@ -177,3 +181,64 @@ Download the trained [mode](https://drive.google.com/file/d/16PQ6K7eovT3gkmD4jY9
 python test.py --cfg ./experiment/horse_test.yaml --seed 5 --name test_horse --dataset animalweb --evaluate --resume checkpoint_horse/horse.pth.tar
 ```
 
+## Japanese Macaque Sub-Dataset
+
+### Test
+
+| Model                        | Link                                                         |
+| ---------------------------- | ------------------------------------------------------------ |
+| japanesemacaque_best.pth.tar | [japanesemacaque_best.pth.tar](https://drive.google.com/file/d/1vHMoO1emDTwxRpP7QH79o48d8FzH4Mqu/view?usp=sharing) |
+
+```shell
+test.py --cfg ./experiment/primate.yaml --seed 5 --name japanese_macaque_test --dataset animalweb --evaluate --resume checkpoint/japanesemacaque_best.pth.tar
+```
+
+### Train
+
+Download the pretrained [model](https://drive.google.com/file/d/1P7_6tjkiw-JIa3b0MrCyr58e30VI7JUx/view?usp=drive_link), and put it under pretrained_model/
+
+```shell
+train_ours.py --cfg ./experiment/primate.yaml --update-steps 600 --name japanese_macaque --l-threshold 0.0 --f-threshold 0.2 --human_shift japanese_human.csv --flip_shift japanese_flip.csv --total-steps 10000 --save-path ./checkpoint --seed 5 --dataset animalweb --lambda-u 8 --student-wait-steps 0 --resume ./pretrained_model/japanesemacaque.pth
+```
+
+## Review
+
+### UDA
+
+| Model             | Link                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| uda_40img.pth.tar | [uda_40img.pth.tar](https://drive.google.com/file/d/13DeMWoI-bhm7wLITPy3UBQH9YX4vZ3Rk/view?usp=drive_link) |
+
+```shell
+# Test 40img known
+python test.py --cfg ./experiment/test_40_known.yaml --seed 5 --name test_40_known_uda --dataset animalweb --evaluate --resume checkpoint/uda_40img.pth.tar
+
+# Test 40img Unknown
+python test.py --cfg ./experiment/test_40_unknown.yaml --seed 5 --name test_40_unknown_uda --dataset animalweb --evaluate --resume checkpoint/uda_40img.pth.tar
+```
+
+
+
+### FixMatch
+
+| Model                  | Link                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| fixmatch_40img.pth.tar | [fixmatch_40img.pth.tar](https://drive.google.com/file/d/1W1xA7l4KQKtpvWPi4RCn55zY57fdLbbk/view?usp=drive_link) |
+
+```shell
+# Test 40img known
+python test.py --cfg ./experiment/test_40_known.yaml --seed 5 --name test_40_known_fixmatch --dataset animalweb --evaluate --resume checkpoint/fixmatch_40img.pth.tar
+
+# Test 40img Unknown
+python test.py --cfg ./experiment/test_40_unknown.yaml --seed 5 --name test_40_unknown_fixmatch --dataset animalweb --evaluate --resume checkpoint/fixmatch_40img.pth.tar
+```
+
+### ScarceNet
+
+Go to the [scarcenet](https://github.com/AnonExploreer/ScarceNet) repo (forked from [ScarceNet](https://github.com/chaneyddtt/ScarceNet))
+
+Download the trained [model](https://drive.google.com/file/d/1qrxMSAQpjBsFtgJVAM-VnrShgqffbSC7/view?usp=drive_link), and move it to ./output/output_part5_updatev2
+
+```
+CUDA_VISIBLE_DEVICES=0 python tools/test.py --cfg experiments/ap10k/hrnet/w32_256x192_adam_lr1e-3.yaml --animalpose OUTPUT_DIR test TEST.MODEL_FILE output/output_part5_updatev2/scarcenet.pth MODEL.NAME pose_hrnet_part GPUS [0,]
+```
