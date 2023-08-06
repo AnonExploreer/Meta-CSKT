@@ -6,6 +6,9 @@ This project is the implementation of our proposed method **Meta-CSKT**.
 Animal face alignment is challenging due to large intra- and inter-species variations and a scarcity of labeled data. Existing studies circumvent this problem by directly finetuning a human face alignment model or focusing on animal-specific face alignment~(e.g., horse, sheep). In this paper, we propose Cross-Species Knowledge Transfer, Meta-CSKT, for animal face alignment, which consists of a base network and an adaptation network. Two networks continuously complement each other through the bi-directional cross-species knowledge transfer. This is motivated by observing knowledge sharing among animals. Meta-CSKT uses a circuit feedback mechanism to improve the base network with the cognitive differences of the adaptation network between few-shot labeled and large-scale unlabeled data. In addition, we propose a positive example mining method to identify positives, semi-hard positives, and hard negatives in unlabeled data to mitigate the scarcity of labeled data and facilitate Meta-CSKT learning. Experiments show that Meta-CSKT outperforms state-of-the-art methods by a large margin on the horse dataset and Japanese Macaque Species, while achieving comparable results to state-of-the-art methods on large-scale labeled AnimalWeb~(e.g., 18K), using only a few labeled images~(e.g., 40).
 
 ![""](README_IMAGE/Fig1_large-eps-converted-to.jpg)
+
+(a) Results for AnimalWeb by 1 human and 3 animal models, sorted in ascending order of NME by the human model. We randomly select 40 images from AnimalWeb for finetuning and repeat it 3 times. (b) Confusion matrix of NME difference between human and animal models. The x-axis represents the finetune data used to train the animal model, and y-axis represents the test data used to evaluate the model. We randomly select 40 images from each family as the finetune data. Elements with/without a minus sign indicate decreased/increased accuracy. Darker Green indicates a larger difference. 
+
 ## Datasets
 
 ### Horse Facial Keypoint dataset
@@ -102,7 +105,7 @@ Download the trained [mode](https://drive.google.com/file/d/16PQ6K7eovT3gkmD4jY9
 python test.py --cfg ./experiment/horse_test.yaml --seed 5 --name test_horse --dataset animalweb --evaluate --resume checkpoint_horse/horse.pth.tar
 ```
 
-## Result on Japanese Macaque Sub-Dataset
+## Results on Japanese Macaque Sub-Dataset
 
 ### Train
 
@@ -123,7 +126,7 @@ test.py --cfg ./experiment/primate.yaml --seed 5 --name japanese_macaque_test --
 ```
 
 
-## Result on AnimalWeb Dataset
+## Results on AnimalWeb Dataset
 
 
 We provide the trained model, you could download our model through the link below.
@@ -230,7 +233,7 @@ We conduct the ablation study on AnimalWeb using 40 labeled images.
 
 
 
-## Comparing with SSL methods (Some Materials for Rebuttal
+## Comparing with SSL methods (Some Materials for Rebuttal)
 
 ![](README_IMAGE/review.png)
 
